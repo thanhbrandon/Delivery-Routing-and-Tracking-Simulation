@@ -1,6 +1,6 @@
 A.  Identify a named self-adjusting algorithm (e.g., nearest neighbor algorithm, greedy algorithm) that could be used to create your program to deliver the packages.
 
-	The nearest neighbor algorithm could create my program and deliver the packages. This algorthim works by traveling to the nearest node in respect to the current node.
+	The nearest neighbor algorithm could create my program and deliver the packages. This algorithm works by traveling to the nearest node in respect to the current node.
 
 B.  Identify a self-adjusting data structure, such as a hash table, that could be used with the algorithm identified in part A to store the package data.
 1.  Explain how your data structure accounts for the relationship between the data components you are storing.
@@ -21,8 +21,8 @@ Note: You may refer to the attached “Sample Core Algorithm Overview” to comp
 
 2.  Describe the programming environment you will use to create the Python application, including both the software and hardware you will use.
 
-  	The software I will be using is the Visual Studio Code IDE, but it can be run on any IDE that can code in python.
-	The harware I will use is a personal destop computer.
+  	The software I will be using is the Visual Studio Code IDE, but it can be run on any IDE that can code in Python.
+	The hardware I will use is a personal desktop computer.
 
 4.  Evaluate the space-time complexity of each major segment of the program and the entire program using big-O notation.
 
@@ -40,7 +40,7 @@ Note: You may refer to the attached “Sample Core Algorithm Overview” to comp
 
     	A weakness with hash tables is that collision can occur. A resolution to this issue is chaining. 
 
-    	A strength of a hash table is that it has fast access times. The average case is O(1). Worst case is O(N) if there are mulitple collisions. 
+    	A strength of a hash table is that it has fast access times. The average case is O(1). The worst case is O(N) if there are multiple collisions. 
     
 11.  Justify the choice of a key for efficient delivery management from the following components:
 	•delivery address
