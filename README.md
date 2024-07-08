@@ -22,7 +22,7 @@ Note: You may refer to the attached “Sample Core Algorithm Overview” to comp
 
 2.  Describe the programming environment you will use to create the Python application, including both the software and hardware you will use.
 
-  	The software I will be using is the Visual Studio Code IDE, but it can be run on any IDE that can code in Python.
+  	The software I will be using is the Visual Studio Code IDE, which can be run on any IDE that can code in Python.
 	The hardware I will use is a personal desktop computer.
 
 4.  Evaluate the space-time complexity of each major segment of the program and the entire program using big-O notation.
@@ -35,7 +35,7 @@ Note: You may refer to the attached “Sample Core Algorithm Overview” to comp
 
 7.  Discuss why the software design would be efficient and easy to maintain.
 
-	My code should be efficient since it is only taking into account the current state of the truck. 
+	My code should be efficient since it only considers the current state of the truck. 
     
 9.  Describe both the strengths and weaknesses of the self-adjusting data structure (e.g., the hash table).
 
@@ -53,6 +53,7 @@ Note: You may refer to the attached “Sample Core Algorithm Overview” to comp
 	•delivery status (i.e., at the hub, en route, or delivered), including the delivery time
 
  	The key should be unique, therefore the package ID will be used as the key. 
-  	Since the hub is located in Utah, delivery address, delivery city, and delivery zip code would be bad keys. This is because the this .
+  	Since the hub is located in Utah, delivery address, delivery city, and delivery zip code would be bad keys. This is because the delivery address would cause multiple collisions.
+   	The package weight and delivery status would be bad keys because looking them up in a hash table would be difficult. 
 
 
