@@ -1,6 +1,6 @@
 A.  Identify a named self-adjusting algorithm (e.g., nearest neighbor algorithm, greedy algorithm) that could be used to create your program to deliver the packages.
 
-	The nearest neighbor algorithm could create my program and deliver the packages. This algorithm works by traveling to the closest node with respect to the current node.
+	The nearest neighbor algorithm could create my program and deliver the packages. This algorithm always chooses the next closest delivery address from the current address.
 
 B.  Identify a self-adjusting data structure, such as a hash table, that could be used with the algorithm identified in part A to store the package data.
 1.  Explain how your data structure accounts for the relationship between the data components you are storing.
@@ -27,11 +27,11 @@ Note: You may refer to the attached “Sample Core Algorithm Overview” to comp
 
 4.  Evaluate the space-time complexity of each major segment of the program and the entire program using big-O notation.
 
- 	The space complexity will be O(n)
+ 	The space complexity will be O(n).
 
 6.  Explain the capability of your solution to scale and adapt to a growing number of packages.
 
-	My solution will scale linearly as the number of packages grows.
+	The nearest neighbor algorithm is efficient in terms of space but can be quite costly in terms of time complexity as the number of locations increases.
 
 7.  Discuss why the software design would be efficient and easy to maintain.
 
