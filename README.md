@@ -3,24 +3,22 @@ A.  Identify a named self-adjusting algorithm (e.g., nearest neighbor algorithm,
 	The nearest neighbor algorithm could create my program and deliver the packages. This algorithm always chooses the next closest delivery address from the current address.
 
 B.  Identify a self-adjusting data structure, such as a hash table, that could be used with the algorithm identified in part A to store the package data.
-1.  Explain how your data structure accounts for the relationship between the data components you are storing.
+	1.  Explain how your data structure accounts for the relationship between the data components you are storing.
 	
 	The hash table can be used as the data structure to store the package data for the algorithm. 
 	The key will be the unique package tracking number and the key will provide the bucket index. This key will be paired with a value that will store the package information
 
 C.  Write an overview of your program in which you do the following:
-1.  Explain the algorithm’s logic using pseudocode.
+	1.  Explain the algorithm’s logic using pseudocode.
+	Note: You may refer to the attached “Sample Core Algorithm Overview” to complete part C1.
+ 
 	1. Load the packages into trucks
     	2. The truck will travel to the nearest node for a delivery
     	3. The truck will travel to the next nearest node for a delivery
     	4. The truck will continue to travel to continue to do this until all packages are delivered.
   	5. The truck will come back to the hub. 	
-   
- 
-Note: You may refer to the attached “Sample Core Algorithm Overview” to complete part C1.
 
-
-2.  Describe the programming environment you will use to create the Python application, including both the software and hardware you will use.
+3.  Describe the programming environment you will use to create the Python application, including both the software and hardware you will use.
 
   	The software I will be using is the Visual Studio Code IDE, which can be run on any IDE that can code in Python.
 	The hardware I will use is a personal desktop computer.
