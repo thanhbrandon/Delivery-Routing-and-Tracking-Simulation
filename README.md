@@ -1,22 +1,31 @@
 A.  Identify a named self-adjusting algorithm (e.g., nearest neighbor algorithm, greedy algorithm) that could be used to create your program to deliver the packages.
 
-	The nearest neighbor algorithm could create my program and deliver the packages. This algorithm always chooses the next closest delivery address from the current address.
+	The nearest neighbor algorithm could create my program and deliver the packages. This algorithm works by always choosing the best option at its current state. In this scenario, the delivery truck will always select to go to the closest location based on its current position. 
 
 B.  Identify a self-adjusting data structure, such as a hash table, that could be used with the algorithm identified in part A to store the package data.
 	1.  Explain how your data structure accounts for the relationship between the data components you are storing.
 	
 	The hash table can be used as the data structure to store the package data for the algorithm. 
-	The key will be the unique package tracking number and the key will provide the bucket index. This key will be paired with a value that will store the package information
+	The key will be the unique package tracking number and the key will provide the bucket index. This key will be paired with a value that will store the package information.
+ 	The package information will be the package's delivery address and delivery status.
 
 C.  Write an overview of your program in which you do the following:
 	1.  Explain the algorithm’s logic using pseudocode.
 	Note: You may refer to the attached “Sample Core Algorithm Overview” to complete part C1.
- 
+  	
 	1. Load the packages into trucks
     	2. The truck will travel to the nearest node for a delivery
     	3. The truck will travel to the next nearest node for a delivery
     	4. The truck will continue to travel to continue to do this until all packages are delivered.
-  	5. The truck will come back to the hub. 	
+  	5. The truck will come back to the hub. 
+
+ 	totalDistance = 0
+   	while totalPackages > 0
+		nextLocation = packages[1]
+    		For i in packages
+      			if package[i].distance < nextlocation
+	 			nextlocation = packages[I]
+	totalDistance = totalDistance + nextlocation.distance[0]
 
 3.  Describe the programming environment you will use to create the Python application, including both the software and hardware you will use.
 
