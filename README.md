@@ -6,7 +6,7 @@ B.  Identify a self-adjusting data structure, such as a hash table, that could b
 	1.  Explain how your data structure accounts for the relationship between the data components you are storing.
 	
 	The hash table can be used as the data structure to store the package data for the algorithm. 
-	The key will be the unique package tracking number and the key will provide the bucket index. This key will be paired with a value that will store the package information.
+	The key will be the unique package tracking number and the key will provide the bucket index. This key will be paired with the package information.
  	The package information will be the package's delivery address and delivery status.
 
 C.  Write an overview of your program in which you do the following:
@@ -20,12 +20,15 @@ C.  Write an overview of your program in which you do the following:
   	5. The truck will come back to the hub. 
 
  	totalDistance = 0
+  	currentLocation = Packages[hub]
    	while totalPackages > 0
 		nextLocation = packages[1]
     		For i in packages
-      			if package[i].distance < nextlocation
-	 			nextlocation = packages[I]
-	totalDistance = totalDistance + nextlocation.distance[0]
+      			if package[i].distance - currentLocation.distance < nextLocationDistance
+	 			nextLocationDistance = package[i].distance - currentLocation.distance
+	 			nextLocation = packages[I]
+     			package.drop[nextLocation]
+			totalDistance = totalDistance + nextlocation.distance[0]
 
 3.  Describe the programming environment you will use to create the Python application, including both the software and hardware you will use.
 
