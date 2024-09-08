@@ -64,6 +64,7 @@ C.  Write an overview of your program in which you do the following:
 
  	The key should be unique, therefore the package ID will be used as the key. 
   	Since the hub is located in Utah, delivery address, delivery city, and delivery zip code would be bad keys. This is because the delivery address would cause multiple collisions.
-   	The package weight and delivery status would be bad keys because looking them up in a hash table would be difficult. 
+   	The package weight and delivery status would also cause multiple collisions, since multiple packages can share the same status and weigh the same.
+    	The delivery deadline would also serve as a bad key because multiple packages can share the same deadline and cause collisions. 
 
 
