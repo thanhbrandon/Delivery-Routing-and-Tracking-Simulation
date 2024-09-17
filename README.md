@@ -51,13 +51,17 @@ C.  Write an overview of your program in which you do the following:
 				totalDistance = totalDistance + nextlocation.distance[0]
 
 	2.  Describe the programming environment you will use to create the Python application, including both the software and hardware you will use.
+		IDE:				PyCharm Community Edition 2024.2.1
+		Product Version: 	242.21829.153
+		Python:				v.3.12
 
-	The software I will be using is the Visual Studio Code IDE, which can be run on any IDE that can code in Python.
-	The hardware I will use is a personal desktop computer.
-
+		Hardware:			Processor	AMD Ryzen 7 5800H with Radeon Graphics 3.20 GHz
+							Installed RAM	16.0 GB (15.4 GB usable)
+				 			System type	64-bit operating system, x64-based processor
+		
 	3.  Evaluate the space-time complexity of each major segment of the program and the entire program using big-O notation.
 
-     The space complexity will be O(n).
+ 		The space complexity will be O(n).
 
 	4.  Explain the capability of your solution to scale and adapt to a growing number of packages.
 
