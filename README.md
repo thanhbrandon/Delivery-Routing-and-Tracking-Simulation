@@ -52,7 +52,7 @@ C.  Write an overview of your program in which you do the following:
 
 3.  Describe the programming environment you will use to create the Python application, including both the software and hardware you will use.
 
-  	The software I will be using is the Visual Studio Code IDE, which can be run on any IDE that can code in Python.
+	The software I will be using is the Visual Studio Code IDE, which can be run on any IDE that can code in Python.
 	The hardware I will use is a personal desktop computer.
 
 4.  Evaluate the space-time complexity of each major segment of the program and the entire program using big-O notation.
@@ -85,6 +85,6 @@ C.  Write an overview of your program in which you do the following:
  	The key should be unique, therefore the package ID will be used as the key. 
   	Since the hub is located in Utah, delivery address, delivery city, and delivery zip code would be bad keys. This is because the delivery address would cause multiple collisions.
    	The package weight and delivery status would also cause multiple collisions, since multiple packages can share the same status and weigh the same.
-    	The delivery deadline would also serve as a bad key because multiple packages can share the same deadline and cause collisions. 
+	The delivery deadline would also serve as a bad key because multiple packages can share the same deadline and cause collisions. 
 
 
