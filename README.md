@@ -20,35 +20,31 @@ Assumptions
 
 A.  Identify a named self-adjusting algorithm (e.g., nearest neighbor algorithm, greedy algorithm) that could be used to create your program to deliver the packages.
 
-	The nearest neighbor algorithm could create my program and deliver the packages. This algorithm works by always choosing the best option at its current state. In this scenario, the delivery truck will always select to go to the closest location based on its current position. 
+	The nearest neighbor algorithm could create my program and deliver the packages. This algorithm works by always choosing the best option at its current state.
+	In this scenario, the delivery truck will be loaded in the order of shortest distance between packages and then delivered in the order it was loaded into the truck.
 
 B.  Identify a self-adjusting data structure, such as a hash table, that could be used with the algorithm identified in part A to store the package data.
 	1.  Explain how your data structure accounts for the relationship between the data components you are storing.
 	
 	The hash table can be used as the data structure to store the package data for the algorithm. 
-	The key will be the unique package tracking number and the key will provide the bucket index. This key will be paired with the package information.
+	The key will be the unique package tracking number, and the key will provide the bucket index. This key will be paired with the package information.
  	The package information will be the package's delivery address and delivery status.
 
 C.  Write an overview of your program in which you do the following:
 	1.  Explain the algorithm’s logic using pseudocode.
 	Note: You may refer to the attached “Sample Core Algorithm Overview” to complete part C1.
   	
-		1. Load the packages into trucks
-			2. The truck will travel to the nearest node for a delivery
-			3. The truck will travel to the next nearest node for a delivery
-			4. The truck will continue to travel to continue to do this until all packages are delivered.
-		5. The truck will come back to the hub. 
-	
-		totalDistance = 0
-		currentLocation = Packages[hub]
-		while totalPackages > 0
-			nextLocation = packages[1]
-				For i in packages
-					if package[i].distance - currentLocation.distance < nextLocationDistance
-					nextLocationDistance = package[i].distance - currentLocation.distance
-					nextLocation = packages[I]
-					package.drop[nextLocation]
-				totalDistance = totalDistance + nextlocation.distance[0]
+		Import Truck
+		Import Package
+		
+		LoadTrucks
+			For packages in packages
+				Load truck with package with the shortest distance to the last package
+		
+		DeliverPackages
+			While all packages in truck are not delivered
+				Deliever packages in order added to the truck
+			Return to Hub
 
 	2.  Describe the programming environment you will use to create the Python application, including both the software and hardware you will use.
 		IDE:				PyCharm Community Edition 2024.2.1
@@ -61,20 +57,23 @@ C.  Write an overview of your program in which you do the following:
 		
 	3.  Evaluate the space-time complexity of each major segment of the program and the entire program using big-O notation.
 
- 		The space complexity will be O(n).
+ 		The space complexity will be O(n). It is linear because the space taken grows linearly with the number of packages added. 
+		The time complexity will be O(n). The hash table to insert, remove, and search for objects will have a time-complexity of O(1). However, the iteration of the objects to determine the order of delivery is O(n). 
+		Therefore, the overall time complexity will be O(n). 
 
 	4.  Explain the capability of your solution to scale and adapt to a growing number of packages.
 
-        The nearest neighbor algorithm is efficient in terms of space but can be quite costly in terms of time complexity as the number of locations increases.
-
+        Hash tables are fully capable of scaling with a growing number of packages. If the hash table reaches its limit, it would be resized with double the capacity.
+		
 	5.  Discuss why the software design would be efficient and easy to maintain.
 
-        My code should be efficient since it only considers the current state of the truck. 
-    
+		The nearest neighbor algorithm is a greedy algorithm, so while it won't always find the overall best solution it will find the best solution in the moment which will make the overall solution better than randomly selecting deliveries. 
+    	The software is easy to maintain because of the modularity of the design. If a specific element (truck, package, algorithm) needs to be enhanced, it can be modified in isolation of the other pieces of the code
+
 	6.  Describe both the strengths and weaknesses of the self-adjusting data structure (e.g., the hash table).
 
     	A weakness with hash tables is that collision can occur. A resolution to this issue is chaining. 
-
+		Another weakness is the resizing may result in excess capacity and the hash table may have many empty buckets that take up space. 
     	A strength of a hash table is that it has fast access times. The average case is O(1). The worst case is O(N) if there are multiple collisions. 
     
 	7.  Justify the choice of a key for efficient delivery management from the following components:
@@ -87,8 +86,8 @@ C.  Write an overview of your program in which you do the following:
        •delivery status (i.e., at the hub, en route, or delivered), including the delivery time
 
 		The key should be unique, therefore the package ID will be used as the key. 
-		Since the hub is located in Utah, delivery address, delivery city, and delivery zip code would be bad keys. This is because the delivery address would cause multiple collisions.
+		Since the hub is in Utah, delivery address, delivery city, and delivery zip code would be bad keys. This is because the delivery address would cause multiple collisions.
 		The package weight and delivery status would also cause multiple collisions, since multiple packages can share the same status and weigh the same.
 		The delivery deadline would also serve as a bad key because multiple packages can share the same deadline and cause collisions. 
 
-
+	
