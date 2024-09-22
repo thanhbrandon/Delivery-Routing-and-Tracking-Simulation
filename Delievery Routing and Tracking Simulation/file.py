@@ -20,7 +20,8 @@ class File:
         with open(self.file, mode='r', encoding='utf-8-sig') as csv_data:
             csv_data.seek(0)  # since we read the file once already we want to make sure we reset the pointer
             data = csv.reader(csv_data, delimiter=',')
-
+            for skip in range(8): # Skip header rows
+                next(data)
             for row in data:
                 key = row[0]
                 package_id = row[0]
