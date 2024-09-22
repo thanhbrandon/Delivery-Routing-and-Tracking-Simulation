@@ -3,6 +3,42 @@
 # Ref: zyBooks: Figure 7.8.2: Hash table using chaining.
 # Modified for Key:Value
 
+class HashTable:
+    def __init__(self, initial_capacity = 10):
+        self.table = []
+        for i in range(initial_capacity):
+            self.table.append([])
+    
+    def insert(self, key, item):
+        bucket = hash(key) % len(self.table)
+        bucket_list = self.table[bucket]
+
+        for kv in bucket_list:
+            if kv[0] == key:
+                kv[1] = item
+                return True
+            
+        key_value = [key, item]
+        bucket_list.append(key_value)
+        return True
+
+    def search(self, key):
+        bucket = hash(key) % len(self.table)
+        bucket_list = self.table[bucket]
+
+        for kv in bucket_list:
+            if kv[0] == key:
+                return kv[1]
+        return None
+
+    def remove(self, key):
+        bucket = hash(key) % len(self.table)
+        bucket_list = self.table[bucket]
+
+        for kv in bucket_list:
+            if kv[0] == key:
+                bucket_list.remove([kv[0], kv[1]])
+
 # HashTable class using chaining.
 class ChainingHashTable:
     # Constructor with optional initial capacity parameter.
@@ -99,40 +135,3 @@ class ChainingHashTable:
                 bucket_list.remove([kv[0], kv[1]])
 
 
-bestMovies = [
-    [1, "CITIZEN KANE - 1941"],
-    [2, "CASABLANCA - 1942"],
-    [3, "THE GODFATHER - 1972"],
-    [4, "GONE WITH THE WIND - 1939"],
-    [5, "LAWRENCE OF ARABIA - 1962"],
-    [6, "THE WIZARD OF OZ - 1939"],
-    [7, "THE GRADUATE - 1967"],
-    [8, "ON THE WATERFRONT- 1954"],
-    [9, "SCHINDLER'S LIST -1993"],
-    [10, "SINGIN' IN THE RAIN - 1952"],
-    [11, "STAR WARS - 1977"]
-]
-
-myHash = ChainingHashTable()
-
-print("\nInsert:")
-myHash.insert(bestMovies[0][0], bestMovies[0][1])  # 2nd bucket; Key=1, item="CITIZEN KANE - 1941"
-print(myHash.table)
-
-myHash.insert(bestMovies[10][0], bestMovies[10][1])  # 2nd bucket as well; Key=11, item="STAR WARS - 1977"
-print(myHash.table)
-
-print("\nSearch:")
-print(myHash.search(1))  # Key=1, item="CITIZEN KANE - 1941"
-print(myHash.search(11))  # Key=11, item="STAR WARS - 1977"; so same bucket and Chainin is working
-
-print("\nUpdate:")
-myHash.insert(1, "Star Trek - 1979")  # 2nd bucket; Key=1, item="Star Trek - 1979"
-print(myHash.table)
-
-print("\nRemove:")
-myHash.remove(1)  # Key=1, item="Star Trek - 1979" to remove
-print(myHash.table)
-
-myHash.remove(11)  # Key=11, item="STAR WARS - 1977" to remove
-print(myHash.table)

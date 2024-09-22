@@ -4,13 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>5baad3ce-5c9d-4d54-a944-881a8b58e642</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Delivery_Routing_and_Tracking_Simulation.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Delievery Routing and Tracking Simulation</Name>
     <RootNamespace>Delievery Routing and Tracking Simulation</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,10 +22,15 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Delivery_Routing_and_Tracking_Simulation.py" />
+    <Compile Include="file.py" />
+    <Compile Include="hashtable.py" />
+    <Compile Include="main.py" />
+    <Compile Include="package.py" />
+    <Compile Include="truck.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="README.txt" />
+    <Content Include="WGUPS Distance Table.csv" />
+    <Content Include="WGUPS Package File.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
