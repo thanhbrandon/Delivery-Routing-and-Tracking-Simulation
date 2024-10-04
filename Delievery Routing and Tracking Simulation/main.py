@@ -46,7 +46,7 @@ with open(addressFile,'r',encoding='utf-8-sig') as csvfile:
             address.append(row[1].strip())
 
 
-print(packageHash.search(6))
+#print(packageHash.search(6))
 
 # Loading packages into trucks manually
 # Packages 6,25,28,32 are delayed and not arriving until 9:05am 
@@ -62,7 +62,7 @@ truck3 = Truck("Truck 3",# Package 16 must be delivered with 13,19
                     [5,7,8,9,10,16,26,28,39,25,22],
                     datetime(2024,8,23,9,50)) # placeholder - truck 3 needs to wait until truck 1 returns
 
-print(truck1)
+#print(truck1)
 
 #totalDistance = 0
 #		currentLocation = Packages[hub]
@@ -78,23 +78,82 @@ print(truck1)
 with open(distanceFile, 'r', encoding='utf-8-sig') as csvfile:
     distanceRef = csv.reader(csvfile)
     distanceRef = list(distanceRef)
+#print(distanceRef)
 
 def findDistance(row, column):
+    if column > row:
+        temp = row
+        row = column
+        column = temp
     distance = distanceRef[row][column]
+#    print("This is the distance: ", distance)
     return float(distance)
 
-print(findDistance(2,1))
+#print(findDistance(1,6))
 
+# connects package ID to package address -returns address
+def connect_id_to_address(package_id):
+    string_id = str(package_id)
+    for i in range(len(packageHash.table)):
+        bucket_list = packageHash.table[i]
+        for key_value in bucket_list:
+            key, package = key_value
+            if key == package_id:
+                return package.address
+    return None
+
+#print(connect_id_to_address(1))
+
+# connect package address to key - returns key
+def address_to_key(package):
+    package_address = connect_id_to_address(package)
+    location_key = None
+    for index in address:
+        if index == package_address:
+            location_key = address.index(index) + 1
+    if package == 0:
+        location_key = 1
+    return location_key
+
+#print(address_to_key(0))
+
+print(14)
+print(connect_id_to_address(14))
+print(address_to_key(14))
 # choosing the package closest to the location that the truck is currently at (greedy method)
 def nearestLocation(start, package_list):
     smallest_distance = float('inf')
     next_location = None
     start_key = address_to_key(start)
+    #print(start_key)
     for package in package_list:
         id_to_key = address_to_key(package)
+        #print(id_to_key)
         if id_to_key is not None:
-            distance = location_distances(start_key, id_to_key)
+            print('Comparing: ',start_key, package)
+            distance = findDistance(start_key, id_to_key)
+            print('Results: Current Challenger: ',package, distance, "Current leader: ", next_location, smallest_distance)
             if distance < smallest_distance:
                 smallest_distance = distance
                 next_location = package
+                print("This is the next candidate location: ", next_location)
+    print("This is the next location", next_location)
     return next_location
+
+#print(nearestLocation(2,truck1.packages[:]))
+
+# ordering the route that the trucks will go in based on closest distance to current location
+def deliveryRoute(truck):
+    route = []
+    start_point = 0
+    packages_left = truck.packages[:]
+    while packages_left:
+        next_location = nearestLocation(start_point,packages_left)
+        route.append(next_location)
+        packages_left.remove(next_location)
+        start_point = next_location
+    return route
+
+print(deliveryRoute(truck1))
+print(truck1.packages[:])
+print(address_to_key(14))
