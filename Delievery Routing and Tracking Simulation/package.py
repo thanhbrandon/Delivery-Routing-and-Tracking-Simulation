@@ -5,7 +5,7 @@ class Package:
                  city='',
                  state='',
                  zipcode='',
-                 delivery_time='',
+                 deadline='',
                  weight='',
                  status='',
                  notes=''):
@@ -14,7 +14,10 @@ class Package:
         self.city = city
         self.state = state
         self.zipcode = zipcode
-        self.delivery_time = delivery_time
+        self.delivery_time = "test"
+        self.departureTime = "twew"
+        self.timeOfDelivery = "test"
+        self.deadline = deadline
         self.weight = weight
         self.status = status
         self.notes = notes
