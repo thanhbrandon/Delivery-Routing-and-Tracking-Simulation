@@ -97,6 +97,7 @@ A.  Develop a hash table, without using any additional libraries or classes, tha
 	•   delivery zip code
 	•   package weight
 	•   delivery status (i.e., at the hub, en route, or delivered), including the delivery time
+ 	The classes HashTable and Package were created to be used together to achieve this. The Package class has attributes that include the delivery address, deadline, city, zip code, weight, status, and package weight. Instances of the Package class will be stored in the HashTable with a key. This key is the package ID.
 
 
 B.  Develop a look-up function that takes the package ID as input and returns each of the following corresponding data components:
@@ -106,7 +107,7 @@ B.  Develop a look-up function that takes the package ID as input and returns ea
 	•   delivery zip code
 	•   package weight
 	•   delivery status (i.e., at the hub, en route, or delivered), including the delivery time
- 	ChainingHashTable has a search function that takes the package ID and returns the delivery address, delivery deadline, delivery city, delivery zip code, package weight, delivery status and any notes. 
+ 	HashTable has a search function that takes the package ID and returns the delivery address, delivery deadline, delivery city, delivery zip code, package weight, delivery status and any notes. 
 
 
 C.  Write an original program that will deliver all packages and meet all requirements using the attached supporting documents “Salt Lake City Downtown Map,” “WGUPS Distance Table,” and “WGUPS Package File.”
@@ -126,12 +127,16 @@ E.  Provide screenshots showing successful completion of the code that includes 
 	
 F.  Justify the package delivery algorithm used in the solution as written in the original program by doing the following:
 	1.  Describe two or more strengths of the algorithm used in the solution.
+	A strength of the nearest neightbor algorithm is that is very easy and intuitive to understand. The makes it easier to explain to other people when trying the sell the idea. 
+ 	Another strength is that the althrithm is effiecent when compared to finding the base case. 
 	2.  Verify that the algorithm used in the solution meets all requirements in the scenario.
 	3.  Identify two other named algorithms that are different from the algorithm implemented in the solution and would meet all requirements in the scenario.
 		a.  Describe how both algorithms identified in part F3 are different from the algorithm used in the solution.
 
 G.  Describe what you would do differently, other than the two algorithms identified in part F3, if you did this project again, including details of the modifications that would be made.
-
+	An improvement I would do is to implement an automatic loading system. Currently the program has the packages hard coded to be in whatever truck. 
+ 	Another improvement I would do is implement a file loading fuction. Currently the system only reads from .csv files that are inluded with the code. 
+ 	
 H.  Verify that the data structure used in the solution meets all requirements in the scenario.
 	1.  Identify two other data structures that could meet the same requirements in the scenario.
 		a.  Describe how each data structure identified in H1 is different from the data structure used in the solution.
