@@ -97,7 +97,9 @@ A.  Develop a hash table, without using any additional libraries or classes, tha
 	•   delivery zip code
 	•   package weight
 	•   delivery status (i.e., at the hub, en route, or delivered), including the delivery time
- 	The classes HashTable and Package were created to be used together to achieve this. The Package class has attributes that include the delivery address, deadline, city, zip code, weight, status, and package weight. Instances of the Package class will be stored in the HashTable with a key. This key is the package ID.
+ 	The classes HashTable and Package were created to be used together to achieve this. 
+	The Package class has attributes that include the delivery address, deadline, city, zip code, weight, status, and package weight. 
+	Instances of the Package class will be stored in the HashTable with a key. This key is the package ID.
 
 
 B.  Develop a look-up function that takes the package ID as input and returns each of the following corresponding data components:
@@ -108,34 +110,37 @@ B.  Develop a look-up function that takes the package ID as input and returns ea
 	•   package weight
 	•   delivery status (i.e., at the hub, en route, or delivered), including the delivery time
  	HashTable has a search function that takes the package ID and returns the delivery address, delivery deadline, delivery city, delivery zip code, package weight, delivery status and any notes. 
+	In main.py function get_specific_package_status() can be called through the user interface to also print the data components in the console. 
 
 
 C.  Write an original program that will deliver all packages and meet all requirements using the attached supporting documents “Salt Lake City Downtown Map,” “WGUPS Distance Table,” and “WGUPS Package File.”
 	1.  Create an identifying comment within the first line of a file named “main.py” that includes your student ID.
-	Refer to main.py line 1
+		Refer to main.py line 1
 	2.  Include comments in your code to explain both the process and the flow of the program.
-	Refer to code
+		Refer to code
 
 D.  Provide an intuitive interface for the user to view the delivery status (including the delivery time) of any package at any time and the total mileage traveled by all trucks. (The delivery status should report the package as at the hub, en route, or delivered. Delivery status must include the time.)
 	1.  Provide screenshots to show the status of all packages loaded onto each truck at a time between 8:35 a.m. and 9:25 a.m.
-	
+		See D1 screenshot
 	2.  Provide screenshots to show the status of all packages loaded onto each truck at a time between 9:35 a.m. and 10:25 a.m.
-	
+		See D2 screenshot
 	3.  Provide screenshots to show the status of all packages loaded onto each truck at a time between 12:03 p.m. and 1:12 p.m.	
- 
+ 		See D3 screenshot
 E.  Provide screenshots showing successful completion of the code that includes the total mileage traveled by all trucks.
-	
+	See E screenshot and D1, D2, and D3
+
 F.  Justify the package delivery algorithm used in the solution as written in the original program by doing the following:
 	1.  Describe two or more strengths of the algorithm used in the solution.
-	A strength of the nearest neightbor algorithm is that is very easy and intuitive to understand. The makes it easier to explain to other people when trying the sell the idea. 
- 	Another strength is that the althrithm is effiecent when compared to finding the base case. 
+	A strength of the nearest neighbor algorithm is that is very easy and intuitive to understand. The makes it easier to explain and maintain the code to other people. 
+ 	This algorithm is considered a greedy algorithm, so it doesn't take spend time or use resources to analyze future moves. This makes the program more efficient at the cost of not always getting the best-case.
 	2.  Verify that the algorithm used in the solution meets all requirements in the scenario.
+	This algorithm resulted in a total distance travel of 108.9 miles for all truck. This is under the 140 requirement.
 	3.  Identify two other named algorithms that are different from the algorithm implemented in the solution and would meet all requirements in the scenario.
 		a.  Describe how both algorithms identified in part F3 are different from the algorithm used in the solution.
 
 G.  Describe what you would do differently, other than the two algorithms identified in part F3, if you did this project again, including details of the modifications that would be made.
-	An improvement I would do is to implement an automatic loading system. Currently the program has the packages hard coded to be in whatever truck. 
- 	Another improvement I would do is implement a file loading fuction. Currently the system only reads from .csv files that are inluded with the code. 
+	An improvement I would do is to implement an automatic loading system. Currently, the program has the packages hard coded to be in whatever truck. 
+ 	Another improvement I would do is implement a file loading function. Currently, the system only reads from .csv files that are included with the code. 
  	
 H.  Verify that the data structure used in the solution meets all requirements in the scenario.
 	1.  Identify two other data structures that could meet the same requirements in the scenario.

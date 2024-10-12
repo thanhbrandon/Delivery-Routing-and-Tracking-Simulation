@@ -1,9 +1,9 @@
 class Truck:
 
-    def __init__(self, id, packages , departTime):
+    def __init__(self, id, packages, departtime):
         self.id = id
         self.packages = packages
-        self.departTime = departTime
+        self.departTime = departtime
 
         self.location = "4001 South 700 East",
         self.mileage = 0.0

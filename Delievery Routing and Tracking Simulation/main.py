@@ -1,8 +1,8 @@
 # Student ID 011652606
 from truck import Truck
 from package import Package
-from hashtable import ChainingHashTable
-from datetime import datetime, time, timedelta
+from hashtable import HashTable
+from datetime import datetime, timedelta
 
 import csv
 
@@ -12,14 +12,12 @@ distanceFile = "WGUPS Distance Table.csv"
 addressFile = "addresses.csv"
 
 # Initializing chaining hash table
-packageHash = ChainingHashTable()
+packageHash = HashTable()
 
-# Reading package data into hast table
+# Reading package data into hash table
 with open(packageFile, 'r', encoding='utf-8-sig') as csvfile:
-    # creating a csv reader object
-    csvreader = csv.reader(csvfile)
-
     # extracting each data row one by one
+    csvreader = csv.reader(csvfile)
     for row in csvreader:
         key = int(row[0])
         package_id = row[0]
@@ -34,7 +32,6 @@ with open(packageFile, 'r', encoding='utf-8-sig') as csvfile:
         newPackage = Package(package_id, address, city, state, zip_code, deadline, weight, status, notes)
         packageHash.insert(key, newPackage)
 
-
 # Reading Address File into Key and Address lists
 with open(addressFile,'r',encoding='utf-8-sig') as csvfile:
     addressRef = csv.reader(csvfile)
@@ -44,7 +41,6 @@ with open(addressFile,'r',encoding='utf-8-sig') as csvfile:
         if row:
             key.append(row[0])
             address.append(row[1].strip())
-
 
 # Loading packages into trucks manually
 truck1 = Truck("Truck 1", # Package 14 must be delivered with 15,19 and Package 20 must be delivered with 13,15
@@ -57,13 +53,14 @@ truck2 = Truck("Truck 2", # Packages 36,38,18,3 can only be on truck 2
 
 truck3 = Truck("Truck 3",# Package 16 must be delivered with 13,19
                     [5,7,8,9,10,16,26,28,39,25,22],
-                    datetime(2024,8,23,9,50)) # Packages 25 and 28 are delayed and not arriving until 9:05am 
-                    # placeholder - truck 3 needs to wait until truck 1 returns
+                    datetime(2024,8,23,9,50)) # Packages 25 and 28 are delayed and not arriving until 9:05am
 
+# Creating Distance list to reference for distances between addresses
 with open(distanceFile, 'r', encoding='utf-8-sig') as csvfile:
     distanceRef = csv.reader(csvfile)
     distanceRef = list(distanceRef)
 
+# find_distance function to find distance between two addresses
 def find_distance(row, column):
     if column > row:
         temp = row
@@ -83,30 +80,26 @@ def get_address(package_id):
                 return package.address
     return None
 
-# Get key to know what address to reference in distance table
+# Get index to know what address to reference in distance table
 def get_key(package):
     package_address = get_address(package)
-    location_key = None
+    location_index = None
     for index in address:
         if index == package_address:
-            location_key = address.index(index) + 1
+            location_index = address.index(index) + 1
     if package == 0:
-        location_key = 1
-    return location_key
+        location_index = 1
+    return location_index
 
 # Gets the next location to travel to
 def nearest_location(start, package_list):
     smallest_distance = float('inf')
     next_location = None
-    start_key = get_key(start)
-    #print(start_key)
+    start_index = get_key(start)
     for package in package_list:
         id_to_key = get_key(package)
-        #print(id_to_key)
         if id_to_key is not None:
-            #print('Comparing: ',start_key, package)
-            distance = find_distance(start_key, id_to_key)
-            #print('Results: Current Challenger: ',package, distance, "Current leader: ", next_location, smallest_distance)
+            distance = find_distance(start_index, id_to_key)
             if distance < smallest_distance:
                 smallest_distance = distance
                 next_location = package
@@ -127,12 +120,6 @@ def get_route(truck):
         start_point = next_location
     return route
 
-#print(deliveryRoute(truck1))
-#print(truck1.packages[:])
-
-#B
-#print(packageHash.search(1))
-
 # runs the trucks through delivery while keeping track of mileage, time, and status
 def run_deliveries(truck):
     truck_route = get_route(truck)
@@ -149,7 +136,7 @@ def run_deliveries(truck):
                 package_info.address = "410 S State St"
                 package_info.zipcode = "84111"
 
-        package_info.status = f"In route"
+        package_info.status = f"on route"
 
         address = get_address(package)
         package_key = get_key(package)
@@ -164,14 +151,11 @@ def run_deliveries(truck):
         package_info.timeOfDelivery = current_time.strftime("%I:%M %p")
         package_info.status = f"Delivered"
 
-
-        
-        print(f"{truck.id} delivered package {package} to {address} from {start_location} at {current_time.strftime('%I:%M %p')} with distance {miles}")
+        print(f"{truck.id} delivered package {package} to {address} from {start_location} at {current_time.strftime('%I:%M %p')} with distance {miles} miles")
         start_location = address
         start_time = current_time
         mileage += miles
         start = package_key
-
 
     return_distance = find_distance(start, 1) # Return to hub
     mileage += return_distance
@@ -180,27 +164,24 @@ def run_deliveries(truck):
     time_delta = timedelta(minutes=extra_time_minutes)
     current_time += time_delta
     if truck == truck1:
-        print(f"Truck One returned to headquarters at {current_time.strftime('%I:%M %p')}")
+        print(f"Truck 1 returned to the hub at {current_time.strftime('%I:%M %p')}")
         mileage = round(mileage,2)
-        print(f"Truck One traveled {mileage} miles.")
+        print(f"Truck 1 traveled {mileage} miles.")
         return mileage
-    elif (truck == truck2):
-        print(f"Truck Two returned to headquarters at {current_time.strftime('%I:%M %p')}")
+    elif truck == truck2:
+        print(f"Truck 2 returned to the hub at {current_time.strftime('%I:%M %p')}")
         mileage = round(mileage,2)
-        print(f"Truck Two traveled {mileage} miles.")
+        print(f"Truck 2 traveled {mileage} miles.")
         return mileage
-    elif (truck == truck3):
-        print(f"Truck Three returned to headquarters at {current_time.strftime('%I:%M %p')}")
+    elif truck == truck3:
+        print(f"Truck 3 returned to the hub at {current_time.strftime('%I:%M %p')}")
         mileage = round(mileage,2)
-        print(f"Truck Three traveled {mileage} miles.")
-        print("\nAll trucks have made their deliveries for the day and have returned to headquarters.")
+        print(f"Truck 3 traveled {mileage} miles.")
         return mileage
     else:
-        print(f"Unknown Truck returned to headquarters at {current_time.strftime('%I:%M %p')}")
+        print(f"Unknown Truck returned to the hub at {current_time.strftime('%I:%M %p')}")
         mileage = round(mileage,2)
-        print(f"Truck Three traveled {mileage} miles.")
-        print("\nAll trucks have made their deliveries for the day and have returned to headquarters.")
-
+        print(f"Unknown Truck traveled {mileage} miles.")
         return mileage
 
 #mileage1 = truck_run(truck1)
@@ -209,136 +190,152 @@ def run_deliveries(truck):
 #total_mileage = mileage1 + mileage2 + mileage3
 #print(mileage3)
 
-# find the truck the package is on
-truck_list = [truck1, truck2, truck3]
 
+truck_list = [truck1, truck2, truck3]
+# find_truck function finds the truck the package is on
 def find_truck(packageID, trucks):
     for truck in trucks:
         if packageID in truck.packages:
             return truck.id
 
-#print(findTruck(14 ,truck_options))
+    return "no truck"
 
-def print_status(input_time):
-    for i in range(len(packageHash.table)):
-        bucket_list = packageHash.table[i]
-        for keyValue in bucket_list:
-            key, package = keyValue
-            if key != '0':
-                time_datetime = datetime.strptime(input_time, "%I:%M %p").time()
-                formatted_time = time_datetime.strftime("%H:%M")
-
-                # package 9 is not updated until 10:20am
-            if key == '9':
-
-                if (time_datetime > datetime.strptime('10:20 am',"%I:%M %p").time()):  # Time after 10:20 AM
-                        package.address = "410 S State St"
-                        package.zipcode = "84111"
-                elif (time_datetime < datetime.strptime('10:20 am',"%I:%M %p").time()):
-                        package.address = "300 State St"
-                        package.zipcode = "84103"
-
-            truck_number = find_truck(key, truck_list)
-            if package.departureTime == None:
-                package.status = 'At Hub'
-
-                print(f"Package:{key} on {truck_number}     Address: {package.address}            Deadline: {package.deadline}      Package Status:{package.status}")
-            elif formatted_time <= package.departureTime:
-                package.status = 'At hub'
-                print(f"Package:{key} on {truck_number}     Address: {package.address}            Deadline: {package.deadline}      Package Status:{package.status}")
-            elif formatted_time <= package.timeOfDelivery:
-                package.status = 'en route'
-                truck_number = find_truck(int(package_id), truck_list)
-                print(f"Package:{key} on {truck_number}      Address: {package.address}            Deadline: {package.deadline}      Package Status:{package.status}")
-            else:
-                package.status = 'delivered'
-                print(f"Package:{key} on {truck_number}      Address: {package.address}            Deadline: {package.deadline}      Package Status:{package.status} at {package.timeOfDelivery}")
-
-#print_status("10:20 pm")
-
-# prints the status for one of the packages at any given time
-def print_status_package(time,package):
-    time_datetime = datetime.strptime(time, "%I:%M %p").time()
-    formatted_time = time_datetime.strftime("%H:%M")
-    package_info = packageHash.search(package)
+# print a specific package's information and status at a specified time
+def get_specific_package_status(time, package):
+    try:
+        time_datetime = datetime.strptime(time, "%I:%M %p").time()
+        formatted_time = time_datetime.strftime("%H:%M")
+    except:
+        print("There was an issue with the input try again.")
+        handle_option('B')
+    try:
+        package_info = packageHash.search(int(package))
+        print(package_info)
+    except:
+        print("Package does not exist or ID is incorrect!")
+        handle_option('B')
     truck_number = find_truck(package, truck_list)
 
     # package 9 is not updated until 10:20am
     if package == '9':
 
-        if (time_datetime > datetime.strptime('10:20 am',"%I:%M %p").time()):  # Time after 10:20 AM
+        if time_datetime > datetime.strptime('10:20 am', "%I:%M %p").time():  # Time after 10:20 AM
             package_info.address = "410 S State St"
             package_info.zipcode = "84111"
-        elif (time_datetime < datetime.strptime('10:20 am',"%I:%M %p").time()):
+        elif time_datetime < datetime.strptime('10:20 am', "%I:%M %p").time():
             package_info.address = "300 State St"
             package_info.zipcode = "84103"
 
-    if package_info.departureTime is None:
-        package_info.packageStatus = 'at hub'
-        print(f"Package:{package} on {truck_number}      Address: {package_info.address}       Deadline: {package_info.deadline}     Package Status:{package_info.packageStatus}")
-    elif formatted_time <= package_info.departureTime:
-        package_info.packageStatus = 'at hub'
-        print(f"Package:{package} on {truck_number}      Address: {package_info.address}       Deadline: {package_info.deadline}     Package Status:{package_info.packageStatus}")
-    elif formatted_time <= package_info.timeOfDelivery:
-        package_info.packageStatus = 'en route'
-        print(f"Package:{package} on {truck_number}      Address: {package_info.address}       Deadline: {package_info.deadline}     Package Status:{package_info.packageStatus}")
-    else:
-        package_info.packageStatus = 'delivered'
-        print(f"Package:{package} on {truck_number}      Address: {package_info.address}       Deadline: {package_info.deadline}     Package Status:{package_info.packageStatus} at {package_info.timeOfDelivery}")
-
+    try:
+        if package_info.departureTime is None:
+            package_info.packageStatus = 'at hub'
+            print(f"Package:{package:<3} on {truck_number}      Address: {package_info.address:<25}       Deadline: {package_info.deadline:<10}     Package Status:{package_info.packageStatus}")
+        elif formatted_time <= package_info.departureTime:
+            package_info.packageStatus = 'at hub'
+            print(f"Package:{package:<3} on {truck_number}      Address: {package_info.address:<25}       Deadline: {package_info.deadline:<10}     Package Status:{package_info.packageStatus}")
+        elif formatted_time <= package_info.timeOfDelivery:
+            package_info.packageStatus = 'on route'
+            print(f"Package:{package:<3} on {truck_number}      Address: {package_info.address:<25}       Deadline: {package_info.deadline:<10}     Package Status:{package_info.packageStatus}")
+        else:
+            package_info.packageStatus = 'delivered'
+            print(f"Package:{package:<3} on {truck_number}      Address: {package_info.address:<25}       Deadline: {package_info.deadline:<10}     Package Status:{package_info.packageStatus} at {package_info.timeOfDelivery}")
+    except:
+        print("Package does not exist or ID is incorrect!")
 #print_status_package("10:20 pm", 10)
 #print_status_package("10:20 pm", 20)
 #print_status_package("10:20 pm", 40)
 
-# gives user options to look up packages and delivery status
-def multiple_choice():
+# Prints all package's statuses at a specific time
+def get_all_package_status(input_time):
+    for i in range(len(packageHash.table)):
+        bucket_list = packageHash.table[i]
+        for keyValue in bucket_list:
+            key, package = keyValue
+            if key != '0':
+                try:
+                    time_datetime = datetime.strptime(input_time, "%I:%M %p").time()
+                    formatted_time = time_datetime.strftime("%H:%M")
+                except:
+                    print("There was an issue with the input try again.")
+                    handle_option('C')
+                # package 9 is not updated until 10:20am
+            if key == '9':
+
+                if time_datetime > datetime.strptime('10:20 am', "%I:%M %p").time():  # Time after 10:20 AM
+                        package.address = "410 S State St"
+                        package.zipcode = "84111"
+                elif time_datetime < datetime.strptime('10:20 am', "%I:%M %p").time():
+                        package.address = "300 State St"
+                        package.zipcode = "84103"
+
+            truck_number = find_truck(key, truck_list)
+            if package.departureTime is None:
+                package.status = 'at Hub'
+
+                print(f"Package:{key:<3}on {truck_number:<8}     Address: {package.address:<40}     Deadline: {package.deadline:<8} Package Status:{package.status}")
+            elif formatted_time <= package.departureTime:
+                package.status = 'at hub'
+                print(f"Package:{key:<3}on {truck_number:<8}     Address: {package.address:<40}     Deadline: {package.deadline:<8} Package Status:{package.status}")
+            elif formatted_time <= package.timeOfDelivery:
+                package.status = 'on route'
+                truck_number = find_truck(int(package_id), truck_list)
+                print(f"Package:{key:<3}on {truck_number:<8}     Address: {package.address:<40}     Deadline: {package.deadline:<8} Package Status:{package.status}")
+            else:
+                package.status = 'delivered'
+                print(f"Package:{key:<3}on {truck_number:<8}     Address: {package.address:<40}     Deadline: {package.deadline:<8}    Package Status:{package.status} at {package.timeOfDelivery}")
+
+#print_status("10:20 pm")
+
+# gives user options to run the deliveries and look up packages and delivery status
+def print_options():
     options = {
         "A":"Run deliveries",
-        "B":"Check Status of ALL Packages at a Certain Time",
-        "C":"Check Status of ONE Package at a Certain Time.",
-        "D":"Exit Program"
+        "B":"Check status of ONE Package at a specific time.",
+        "C": "Check status of ALL Packages at a specific time",
+        "D":"Exit program"
     }
 
-    print("Please select how you would like to proceed:")
+    print("MAIN MENU")
     for letter, value in options.items():
         print(f"{letter}: {value}")
 
-    user_input = input("Enter the letter of your choice: ").strip().upper()
+    user_input = input("Selection (A, B, C, or D): ").strip().upper()
     return user_input
 
-# plays out what the user picked during multiple choice
-def handle_choice(choice):
-    if choice == 'A':
-        print("Running routing program.....\n")
+# handle_option function handles the user input from the print_options function
+def handle_option(option):
+    if option == 'A':
+        print("Running deliveries.....\n")
         mileage1 = run_deliveries(truck1)
         mileage2 = run_deliveries(truck2)
         mileage3 = run_deliveries(truck3)
         total_mileage = mileage1 + mileage2 + mileage3
         total_mileage = round(total_mileage, 2)
-        print(f"\nIn total the trucks traveled {total_mileage} miles today.\n")
-        user_choice = multiple_choice()
-        handle_choice(user_choice)
+        print(f"\nThe trucks completed the deliveries and traveled a total of {total_mileage} miles.\n")
+        option_menu()
 
-    if choice == 'B':
-        a_input = input("What time would you like to view? (Please input HH:MM am/pm)")
-        print_status(a_input)
-        user_choice = multiple_choice()
-        handle_choice(user_choice)
+    elif option == 'B':
+        package_input = input("Enter PackageID: ")
+        time_input =  input("Enter time as HH:MM am/pm: ")
+        get_specific_package_status(time_input, package_input)
+        option_menu()
 
-    elif choice == 'C':
-        package_input = input("What package would you like to view?")
-        time_input =  input("What time would you like to view this package? (Please input HH:MM am/pm)")
-        print_status_package(time_input,package_input)
-        user_choice = multiple_choice()
-        handle_choice(user_choice)
+    elif option == 'C':
+        b_input = input("Enter time as HH:MM am/pm: ")
+        get_all_package_status(b_input)
+        option_menu()
 
-    elif choice == 'D':
-        print("You have choose to exit the program.")
+    elif option == 'D':
+        print("Exiting Program")
 
-# runs the delivery program
+    else:
+        print("NOT A VALID CHOICE! TRY AGAIN!")
+        option_menu()
+
+# Prints the options and handles the user input
 def option_menu():
-    print("Welcome to the WGUPS Routing Program!")
-    user_choice = multiple_choice()
-    handle_choice(user_choice)
+    input = print_options()
+    handle_option(input)
 
-option_menu()
+print("WGUPS ROUTING PROGRAM INITIALIZED")
+option_menu() # Runs the option menu

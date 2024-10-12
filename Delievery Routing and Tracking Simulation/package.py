@@ -15,12 +15,12 @@ class Package:
         self.state = state
         self.zipcode = zipcode
         self.delivery_time = "test"
-        self.departureTime = "twew"
+        self.departureTime = "test"
         self.timeOfDelivery = "test"
         self.deadline = deadline
         self.weight = weight
         self.status = status
-        self.notes = notes
+        self.notes = "No notes"
 
     def set_id(self, package_id):
         self.package_id = package_id
