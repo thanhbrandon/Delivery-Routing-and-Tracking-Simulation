@@ -337,5 +337,8 @@ def option_menu():
     input = print_options()
     handle_option(input)
 
+mileage1 = run_deliveries(truck1)
+mileage2 = run_deliveries(truck2)
+mileage3 = run_deliveries(truck3)
 print("WGUPS ROUTING PROGRAM INITIALIZED")
 option_menu() # Runs the option menu
