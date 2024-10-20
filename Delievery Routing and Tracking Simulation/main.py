@@ -210,7 +210,6 @@ def get_specific_package_status(time, package):
         handle_option('B')
     try:
         package_info = packageHash.search(int(package))
-        print(package_info)
     except:
         print("Package does not exist or ID is incorrect!")
         handle_option('B')
@@ -259,7 +258,7 @@ def get_all_package_status(input_time):
                     print("There was an issue with the input try again.")
                     handle_option('C')
                 # package 9 is not updated until 10:20am
-            if key == '9':
+            if key == 9:
 
                 if time_datetime > datetime.strptime('10:20 am', "%I:%M %p").time():  # Time after 10:20 AM
                         package.address = "410 S State St"
